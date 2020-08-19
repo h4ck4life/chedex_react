@@ -23,7 +23,7 @@ const listItems = function () {
       return (
         <ListGroup.Item>
           <Post
-            key={{ i }}
+            key={i}
             title="Title of the post"
             content="dsadsa dsdsadsa dsadsadsa dsdsadsadsaddsadsadsa dsadsadsadas dsadsadsadsa dasdsadsad dasdsadsa dsadsad dasdsadsa dsadsad"
             date="12 May 2018"
