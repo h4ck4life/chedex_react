@@ -1,11 +1,8 @@
 {
-  "name": "react",
+  "name": "chedet-full-text-search-app",
   "version": "1.0.0",
-  "description": "React example starter project",
-  "keywords": [
-    "react",
-    "starter"
-  ],
+  "description": "",
+  "keywords": [],
   "main": "src/index.js",
   "dependencies": {
     "bootstrap": "4.5.2",
