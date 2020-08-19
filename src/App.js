@@ -47,7 +47,7 @@ const paginationBasic = function () {
     );
   }
   return (
-    <div>
+    <div className="d-flex justify-content-end mt-5 mb-2">
       <Pagination>{items}</Pagination>
     </div>
   );
@@ -83,11 +83,10 @@ const App = () => (
         </Button>
       </Form>
     </Navbar>
-    <div className="d-flex justify-content-center">
-      <Spinner variant="secondary" animation="grow" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    </div>
+    {/* <div className="d-flex justify-content-center align-items-center mt-5">
+      <Spinner variant="secondary" animation="grow" role="status" />
+      <div className="ml-3">Loading index data..</div>
+    </div> */}
     <div>
       {paginationBasic()}
       <ListGroup>{listItems()}</ListGroup>
