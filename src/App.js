@@ -10,7 +10,8 @@ import {
   Form,
   FormControl,
   ListGroup,
-  Spinner
+  Spinner,
+  Pagination
 } from "react-bootstrap";
 
 import "./styles.css";
@@ -32,6 +33,27 @@ const listItems = function () {
     });
 };
 
+const paginationBasic = function () {
+  let active = 2;
+  let items = [];
+  for (let number = 1; number <= 5; number++) {
+    items.push(
+      <Pagination.Item
+        onClick={() => console.log("alif")}
+        key={number}
+        active={number === active}
+      >
+        {number}
+      </Pagination.Item>
+    );
+  }
+  return (
+    <div>
+      <Pagination size="sm">{items}</Pagination>
+    </div>
+  );
+};
+
 const App = () => (
   <Container className="p-3">
     <Navbar bg="light" expand="lg">
@@ -40,6 +62,12 @@ const App = () => (
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="#about">About</Nav.Link>
+          <Nav.Link
+            target="_blank"
+            href="https://github.com/h4ck4life/chedex_react"
+          >
+            Github
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
       <Form inline>
@@ -49,7 +77,7 @@ const App = () => (
           placeholder="Type here.."
           className="mr-sm-2"
         />
-        <Button variant="success" size="lg">
+        <Button variant="primary" size="lg">
           Search
         </Button>
       </Form>
@@ -59,7 +87,10 @@ const App = () => (
         <span className="sr-only">Loading...</span>
       </Spinner>
     </div>
-    <ListGroup>{listItems()}</ListGroup>
+    <div>
+      {paginationBasic()}
+      <ListGroup>{listItems()}</ListGroup>
+    </div>
   </Container>
 );
 
