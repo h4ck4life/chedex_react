@@ -24,7 +24,7 @@ const listItems = function () {
         <ListGroup.Item key={i}>
           <Post
             title="Title of the post"
-            content="Almost before we knew it, we had left the ground."
+            content="Almost before we knew it, we had left the ground.Almost before we knew it, we had left the ground. Almost before we knew it, we had left the ground. Almost before we knew it, we had left the ground. Almost before we knew it, we had left the ground. Almost before we knew it, we had left the ground. Almost before we knew it, we had left the ground. Almost before we knew it, we had left the ground. Almost before we knew it, we had left the ground. Almost before we knew it, we had left the ground. Almost before we knew it, we had left the ground. Almost before we knew it, we had left the ground."
             date="12 May 2018"
           />
         </ListGroup.Item>
@@ -48,7 +48,7 @@ const paginationBasic = function () {
   }
   return (
     <div>
-      <Pagination size="sm">{items}</Pagination>
+      <Pagination>{items}</Pagination>
     </div>
   );
 };
@@ -56,7 +56,9 @@ const paginationBasic = function () {
 const App = () => (
   <Container className="p-3">
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">Chedex</Navbar.Brand>
+      <Navbar.Brand href="#home">
+        <b>Chedex</b>
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
@@ -74,9 +76,9 @@ const App = () => (
           size="lg"
           type="text"
           placeholder="Type here.."
-          className="mr-sm-2"
+          className="mr-sm-2 txtSearch"
         />
-        <Button variant="primary" size="lg">
+        <Button className="btnSearch" variant="primary" size="lg">
           Search
         </Button>
       </Form>
