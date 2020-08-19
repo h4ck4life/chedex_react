@@ -1,0 +1,17 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.header {
+  text-align: center;
+}
+
+.subHeader {
+  font-size: 14px;
+  color: gray;
+}
+
+.jumbotron_chedex {
+  background-color: #f8f9fa !important;
+}
