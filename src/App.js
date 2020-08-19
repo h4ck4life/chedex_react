@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Post from "./Post";
 
 import {
-  Jumbotron,
   Container,
   Button,
   Navbar,
