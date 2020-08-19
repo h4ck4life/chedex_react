@@ -10,7 +10,7 @@ import {
   Form,
   FormControl,
   ListGroup,
-  Spinner,
+  //Spinner,
   Pagination
 } from "react-bootstrap";
 
