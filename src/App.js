@@ -21,11 +21,10 @@ const listItems = function () {
     .fill()
     .map((_, i) => {
       return (
-        <ListGroup.Item>
+        <ListGroup.Item key={i}>
           <Post
-            key={i}
             title="Title of the post"
-            content="dsadsa dsdsadsa dsadsadsa dsdsadsadsaddsadsadsa dsadsadsadas dsadsadsadsa dasdsadsad dasdsadsa dsadsad dasdsadsa dsadsad"
+            content="Almost before we knew it, we had left the ground."
             date="12 May 2018"
           />
         </ListGroup.Item>
