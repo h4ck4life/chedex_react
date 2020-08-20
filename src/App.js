@@ -4,7 +4,6 @@ import Post from "./Post";
 
 import {
   Container,
-  Button,
   Navbar,
   Nav,
   Form,
@@ -71,16 +70,27 @@ const App = () => (
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>
-      <Form inline>
+      <Form
+        inline
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.log("alif");
+        }}
+      >
         <FormControl
           size="lg"
           type="text"
-          placeholder="Type here.."
+          placeholder="Search here.."
           className="mr-sm-2 txtSearch"
+          onChange={(e) => {
+            if (e.target.value.length > 3 || e.target.value.trim() !== "") {
+              console.log(e.target.value);
+            }
+          }}
         />
-        <Button className="btnSearch" variant="primary" size="lg">
+        {/* <Button className="btnSearch" variant="primary" size="lg">
           Search
-        </Button>
+        </Button> */}
       </Form>
     </Navbar>
     {/* <div className="d-flex justify-content-center align-items-center mt-5">
