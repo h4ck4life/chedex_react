@@ -1,7 +1,5 @@
 import React from "react";
-
 import Post from "./Post";
-
 import {
   Container,
   Navbar,
@@ -12,6 +10,7 @@ import {
   //Spinner,
   Pagination
 } from "react-bootstrap";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import "./styles.css";
 
@@ -46,62 +45,79 @@ const paginationBasic = function () {
     );
   }
   return (
-    <div className="d-flex justify-content-end mt-5 mb-2">
-      <Pagination>{items}</Pagination>
+    <div className="w-100 d-inline-flex mt-4 mb-3">
+      <div className="d-flex align-items-baseline">
+        <Form
+          inline
+          onSubmit={(e) => {
+            e.preventDefault();
+            console.log("alif");
+          }}
+        >
+          <FormControl
+            size="md"
+            type="text"
+            placeholder="Search here.."
+            className=""
+            onChange={(e) => {
+              if (e.target.value.length > 3 || e.target.value.trim() !== "") {
+                console.log(e.target.value);
+              }
+            }}
+          />
+          {/* <Button className="btnSearch" variant="primary" size="lg">
+          Search
+        </Button> */}
+        </Form>
+      </div>
+      <div className="w-100 d-flex flex-row-reverse">
+        <Pagination className="d-flex align-items-baseline mb-0">
+          {items}
+        </Pagination>
+      </div>
     </div>
   );
 };
 
 const App = () => (
-  <Container className="p-3">
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">
-        <b>Chedex</b>
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="#about">About</Nav.Link>
-          <Nav.Link
-            target="_blank"
-            href="https://github.com/h4ck4life/chedex_react"
-          >
-            Github
-          </Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-      <Form
-        inline
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log("alif");
-        }}
-      >
-        <FormControl
-          size="lg"
-          type="text"
-          placeholder="Search here.."
-          className="mr-sm-2 txtSearch"
-          onChange={(e) => {
-            if (e.target.value.length > 3 || e.target.value.trim() !== "") {
-              console.log(e.target.value);
-            }
-          }}
-        />
-        {/* <Button className="btnSearch" variant="primary" size="lg">
-          Search
-        </Button> */}
-      </Form>
-    </Navbar>
-    {/* <div className="d-flex justify-content-center align-items-center mt-5">
+  <Router>
+    <Container className="p-3">
+      <Navbar bg="light" expand="lg">
+        <Link className="navbar-brand" to="/">
+          <h3>Chedex</h3>
+        </Link>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Link className="nav-link" to="/about">
+              About
+            </Link>
+            <Nav.Link
+              target="_blank"
+              href="https://github.com/h4ck4life/chedex_react"
+            >
+              Github
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      {/* <div className="d-flex justify-content-center align-items-center mt-5">
       <Spinner variant="secondary" animation="grow" role="status" />
       <div className="ml-3">Loading index data..</div>
     </div> */}
-    <div>
-      {paginationBasic()}
-      <ListGroup>{listItems()}</ListGroup>
-    </div>
-  </Container>
+      <Switch>
+        <Route path="/about">
+          <p>About</p>
+        </Route>
+        <Route path="/">
+          <div>
+            {paginationBasic()}
+            <ListGroup>{listItems()}</ListGroup>
+          </div>
+        </Route>
+      </Switch>
+    </Container>
+  </Router>
 );
 
 export default App;

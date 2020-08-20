@@ -7,9 +7,4 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  rootElement
-);
+ReactDOM.render(<App />, rootElement);
