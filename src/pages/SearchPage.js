@@ -8,7 +8,6 @@ import {
   Form,
   Button
 } from "react-bootstrap";
-import Elasticlunr from "elasticlunr";
 
 import Post from "../components/Post";
 
