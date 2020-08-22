@@ -14,7 +14,7 @@ const App = () => {
   return (
     <Router>
       <Container className="p-3">
-        <Navbar bg="light" expand="lg">
+        <Navbar expand="lg">
           <Link title="Full-text search of chedet.cc blog" className="navbar-brand" to="/">
             <h3>Chedex</h3>
           </Link>
