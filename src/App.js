@@ -15,7 +15,7 @@ const App = () => {
     <Router>
       <Container className="p-3">
         <Navbar bg="light" expand="lg">
-          <Link className="navbar-brand" to="/">
+          <Link title="Full-text search of chedet.cc blog" className="navbar-brand" to="/">
             <h3>Chedex</h3>
           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

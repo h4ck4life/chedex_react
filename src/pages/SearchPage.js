@@ -3,77 +3,29 @@ import {
   FormControl,
   ListGroup,
   //Spinner,
+  Badge,
   Pagination,
-  Form
+  Form,
+  Button
 } from "react-bootstrap";
 import Elasticlunr from "elasticlunr";
 
 import Post from "../components/Post";
 
-const getSearchIndex = function name() {
-  let searchResults = [
-    {
-      id: 1,
-      title: "ikan",
-      content: "ikan bilis, ikan goreng",
-      date: "12 August 2016"
-    },
-    {
-      id: 2,
-      title: "daging",
-      content: "kambing, lembu",
-      date: "7 Jan 2011"
-    },
-    {
-      id: 3,
-      title: "ayam",
-      content: "kampung, kfc, mcd, kentang goreng",
-      date: "15 July 2018"
-    },
-    {
-      id: 4,
-      title: "kentang",
-      content: "frend fries, kentang goreng",
-      date: "3 March 2020"
-    }
-  ];
-
-  var index = Elasticlunr(function () {
-    this.addField("title");
-    this.addField("content");
-    this.addField("date");
-    this.setRef("id");
-    this.saveDocument(true);
-  });
-
-  searchResults.forEach((val, idx) => {
-    index.addDoc(val);
-  });
-
-  return index;
-};
-
 const ListItems = function (props) {
-  return getSearchIndex()
-    .search(props.keyword, {
-      fields: {
-        title: { boost: 1 },
-        content: { boost: 2 }
-      },
-      bool: "AND"
-    })
-    .map((_, i) => {
-      let item = getSearchIndex().documentStore.getDoc(_.ref);
-      return (
-        <ListGroup.Item key={i}>
-          <Post title={item.title} content={item.content} date={item.date} />
-        </ListGroup.Item>
-      );
-    });
+  return props.results.map((item, i) => {
+    return (
+      <ListGroup.Item key={item.ref}>
+        <Post keyword={props.keyword} title={item.doc.title} content={item.doc.content} date={item.doc.date} url={item.doc.url} />
+      </ListGroup.Item>
+    );
+  });
 };
 
 const SearchView = function (props) {
   const [keyword, setKeyword] = useState();
+  const [results, setResults] = useState([]);
+  const [count, setResultsCount] = useState(0);
 
   let active = 2;
   let items = [];
@@ -102,17 +54,35 @@ const SearchView = function (props) {
               value={keyword || ""}
               size="md"
               type="text"
-              placeholder="Search here.."
+              placeholder="Type here.."
               className=""
               onChange={(e) => {
+                //console.log(e.target.value);
                 setKeyword(e.target.value);
-                if (e.target.value.length > 3 && e.target.value.trim() !== "") {
-                  // do the search here
-                  console.log(e.target.value);
-                }
               }}
             />
+            <Button className="ml-2 btnSearch" type="submit" onClick={(e) => {
+              if (keyword.length > 3 && keyword.trim() !== "") {
+                fetch(`https://chedex.herokuapp.com/search/${keyword}`)
+                  .then(res => res.json())
+                  .then(
+                    (result) => {
+                      //console.log(result);
+                      setResults(result);
+                      setResultsCount(result.length || 0);
+                    },
+                    (error) => {
+                      console.log(error.message);
+                    }
+                  )
+              } else{
+                setResults([]);
+              }
+            }} variant="primary">Search</Button>
           </Form>
+          <div className="ml-2">
+            <Badge variant="light"><span className="count">{count} post(s) found</span></Badge>
+          </div>
         </div>
         <div className="d-flex flex-fill flex-row-reverse">
           <Pagination className="d-flex align-items-baseline mb-0">
@@ -121,7 +91,7 @@ const SearchView = function (props) {
         </div>
       </div>
       <ListGroup>
-        <ListItems keyword={keyword} />
+        <ListItems keyword={keyword} results={results} />
       </ListGroup>
     </div>
   );
