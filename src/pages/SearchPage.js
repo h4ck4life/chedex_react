@@ -25,6 +25,7 @@ const SearchView = function (props) {
   const [keyword, setKeyword] = useState();
   const [results, setResults] = useState([]);
   const [count, setResultsCount] = useState(0);
+  const [isLoading, setLoading] = useState(false);
 
   let active = 2;
   let items = [];
@@ -56,28 +57,33 @@ const SearchView = function (props) {
               placeholder="Type here.."
               className=""
               onChange={(e) => {
-                //console.log(e.target.value);
                 setKeyword(e.target.value);
               }}
             />
-            <Button className="ml-2 btnSearch" type="submit" onClick={(e) => {
+            <Button
+            className="ml-2 btnSearch"
+            type="submit"
+            disabled={isLoading}
+            onClick={(e) => {
               if (keyword.length > 3 && keyword.trim() !== "") {
+                setLoading(true);
                 fetch(`https://chedex.herokuapp.com/search/${keyword}`)
                   .then(res => res.json())
                   .then(
                     (result) => {
-                      //console.log(result);
                       setResults(result);
                       setResultsCount(result.length || 0);
+                      setLoading(false);
                     },
                     (error) => {
                       console.log(error.message);
+                      setLoading(false);
                     }
                   )
               } else{
                 setResults([]);
               }
-            }} variant="primary">Search</Button>
+            }} variant="primary">{isLoading ? 'Loading…' : 'Search'}</Button>
           </Form>
           <div className="ml-2">
             <Badge variant="light"><span className="count">{count} post(s) found</span></Badge>
