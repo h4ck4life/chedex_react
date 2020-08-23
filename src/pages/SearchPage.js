@@ -66,7 +66,7 @@ const SearchView = function (props) {
             type="submit"
             disabled={isLoading}
             onClick={(e) => {
-              if (keyword != undefined && keyword.length > 3 && keyword.trim() !== "") {
+              if (keyword !== undefined && keyword.length > 3 && keyword.trim() !== "") {
                 setLoading(true);
                 fetch(`https://chedex.herokuapp.com/search/${keyword}`)
                   .then(res => res.json())
