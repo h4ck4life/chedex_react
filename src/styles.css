@@ -20,10 +20,8 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
-  /* For mobile phones: */
-  .btnSearch,
-  .txtSearch {
-    width: 100%;
+  .btnSearch {
+    margin-left: 0 !important;
     margin-top: 10px;
   }
 }

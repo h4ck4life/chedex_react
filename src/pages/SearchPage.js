@@ -42,8 +42,9 @@ const SearchView = function (props) {
   }
   return (
     <div>
-      <div className="w-100 d-inline-flex mt-4 mb-3">
-        <div className="d-flex flex-fill align-items-baseline">
+      <div className="row d-flex mt-4 mb-3">
+        <div className="col-md-9 d-flex align-items-baseline">
+          <div className="d-flex">
           <Form
             inline
             onSubmit={(e) => {
@@ -65,7 +66,7 @@ const SearchView = function (props) {
             type="submit"
             disabled={isLoading}
             onClick={(e) => {
-              if (keyword.length > 3 && keyword.trim() !== "") {
+              if (keyword != undefined && keyword.length > 3 && keyword.trim() !== "") {
                 setLoading(true);
                 fetch(`https://chedex.herokuapp.com/search/${keyword}`)
                   .then(res => res.json())
@@ -82,14 +83,16 @@ const SearchView = function (props) {
                   )
               } else{
                 setResults([]);
+                setResultsCount(0);
               }
             }} variant="primary">{isLoading ? 'Loading…' : 'Search'}</Button>
           </Form>
-          <div className="ml-2">
-            <Badge variant="light"><span className="count">{count} post(s) found</span></Badge>
+          </div>
+          <div className="d-flex ml-2">
+            <Badge variant="light"><span className="count">{count} post(s)</span></Badge>
           </div>
         </div>
-        <div className="d-flex flex-fill flex-row-reverse">
+        <div className="col-md-3 d-flex flex-row-reverse">
           <Pagination className="d-flex align-items-baseline mb-0">
             {items}
           </Pagination>
