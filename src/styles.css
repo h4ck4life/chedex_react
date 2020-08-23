@@ -19,6 +19,15 @@ body {
   font-size: 14px;
 }
 
+.post {
+  line-height: 1.7;
+}
+
+.pageInfo {
+  font-size: 14px;
+  color: grey;
+}
+
 @media only screen and (max-width: 768px) {
   .btnSearch {
     margin-left: 0 !important;

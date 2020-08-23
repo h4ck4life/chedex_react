@@ -19,6 +19,6 @@ export default (props) => (
         <span className="postDate">{props.date}</span>
       </div>
     </div>
-    <div dangerouslySetInnerHTML={createMarkup(props.content, props.keyword)} />
+    <div className="post" dangerouslySetInnerHTML={createMarkup(props.content, props.keyword)} />
   </div>
 );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FormControl,
   ListGroup,
@@ -22,84 +22,136 @@ const ListItems = function (props) {
 };
 
 const SearchView = function (props) {
+
+  // Search results state
   const [keyword, setKeyword] = useState();
   const [results, setResults] = useState([]);
+  const [resultList, setResultList] = useState([]);
   const [count, setResultsCount] = useState(0);
   const [isLoading, setLoading] = useState(false);
 
-  let active = 2;
-  let items = [];
-  for (let number = 1; number <= 3; number++) {
-    items.push(
-      <Pagination.Item
-        onClick={() => console.log("alif")}
-        key={number}
-        active={number === active}
-      >
-        {number}
-      </Pagination.Item>
-    );
+  // Pagination state config
+  const [isPageFirstDisable, setIsPageFirstDisable] = useState(true);
+  const [isPagePrevDisable, setIsPagePrevDisable] = useState(true);
+  const [isPageNextDisable, setIsPageNextDisable] = useState(false);
+  const [isPageLastDisable, setIsPageLastDisable] = useState(true);
+  const [pageCurrentIndex, setPageCurrentIndex] = useState(10);
+
+  useEffect(() => {
+    //console.log('useEffect run');
+    setPageCurrentIndex(10);
+    setResultsCount(results.length || 0);
+    setPagination();
+  }, [results]);
+
+  const setPagination = function (nav) {
+    let postPerPage = 10;
+    if (results && results.length > 0) {
+      switch (nav) {
+        case 'next':
+          //console.log(`Next ${pageCurrentIndex} - ${pageCurrentIndex + postPerPage}`);
+          let pageListNext = results.slice(pageCurrentIndex, pageCurrentIndex + postPerPage);
+          setResultList(pageListNext);
+          setIsPagePrevDisable(false);
+          if (pageCurrentIndex === (Math.floor(results.length / postPerPage) * 10)) {
+            setIsPageNextDisable(true);
+          } else {
+            setPageCurrentIndex(pageCurrentIndex + postPerPage);
+          }
+          break;
+        case 'prev':
+          //console.log(`Prev ${pageCurrentIndex - postPerPage} - ${pageCurrentIndex}`);
+          let pageListPrev = results.slice(pageCurrentIndex - postPerPage, pageCurrentIndex);
+          //setPageCeilingIndex(pageCeilingIndex - postPerPage);
+          setResultList(pageListPrev);
+          setIsPageNextDisable(false);
+          if (pageCurrentIndex === postPerPage) {
+            setIsPagePrevDisable(true);
+          } else {
+            setPageCurrentIndex(pageCurrentIndex - postPerPage);
+          }
+          break;
+        default:
+          //console.log(`Default ${pageCurrentIndex} - ${postPerPage}`);
+          let pageListDefault = results.slice(0, postPerPage);
+          //setPageCurrentIndex(pageCurrentIndex + postPerPage);
+          setResultList(pageListDefault);
+          setIsPagePrevDisable(true);
+          setIsPageNextDisable(false);
+          break;
+      }
+
+    } else {
+      //console.log(results.length);
+      setResultList([]);
+    }
   }
+
   return (
     <div>
       <div className="row d-flex mt-4 mb-3">
         <div className="col-md-9 d-flex align-items-baseline">
           <div className="d-flex">
-          <Form
-            inline
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-          >
-            <FormControl
-              value={keyword || ""}
-              size="md"
-              type="text"
-              placeholder="Type here.."
-              className=""
-              onChange={(e) => {
-                setKeyword(e.target.value);
+            <Form
+              inline
+              onSubmit={(e) => {
+                e.preventDefault();
               }}
-            />
-            <Button
-            className="ml-2 btnSearch"
-            type="submit"
-            disabled={isLoading}
-            onClick={(e) => {
-              if (keyword !== undefined && keyword.length > 3 && keyword.trim() !== "") {
-                setLoading(true);
-                fetch(`https://chedex.herokuapp.com/search/${keyword}`)
-                  .then(res => res.json())
-                  .then(
-                    (result) => {
-                      setResults(result);
-                      setResultsCount(result.length || 0);
-                      setLoading(false);
-                    },
-                    (error) => {
-                      console.log(error.message);
-                      setLoading(false);
-                    }
-                  )
-              } else{
-                setResults([]);
-                setResultsCount(0);
-              }
-            }} variant="primary">{isLoading ? 'Loading…' : 'Search'}</Button>
-          </Form>
+            >
+              <FormControl
+                value={keyword || ""}
+                size="md"
+                type="text"
+                placeholder="Type here.."
+                className=""
+                onChange={(e) => {
+                  setKeyword(e.target.value);
+                }}
+              />
+              <Button
+                className="ml-2 btnSearch"
+                type="submit"
+                disabled={isLoading}
+                onClick={(e) => {
+                  if (keyword !== undefined && keyword.length > 2 && keyword.trim() !== "") {
+                    setLoading(true);
+                    fetch(`https://chedex.herokuapp.com/search/${keyword}`)
+                      .then(res => res.json())
+                      .then(
+                        (result) => {
+                          setResults(result);
+                          setLoading(false);
+                        },
+                        (error) => {
+                          console.log(error.message);
+                          setLoading(false);
+                        }
+                      )
+                  } else {
+                    setResults([]);
+                    setResultsCount(0);
+                  }
+                }} variant="primary">{isLoading ? 'Loading…' : 'Search'}</Button>
+            </Form>
           </div>
           <div className="d-flex ml-2">
             <Badge variant="light"><span className="count">{count} post(s)</span></Badge>
           </div>
         </div>
-        <div className="col-md-3 d-flex flex-row-reverse">
+        <div className="col-md-3 d-flex align-items-baseline flex-row-reverse">
           <Pagination className="d-flex align-items-baseline mb-0">
-            {items}
+            <Pagination.First disabled={isPageFirstDisable} onClick={setPagination} />
+            <Pagination.Prev disabled={isPagePrevDisable} onClick={() => { setPagination('prev') }} />
+            <Pagination.Next disabled={isPageNextDisable} onClick={() => { setPagination('next') }} />
+            <Pagination.Last disabled={isPageLastDisable} onClick={setPagination} />
           </Pagination>
+          {/* <div className="d-flex mr-2 pageInfo">
+            {pageCurrentIndex} to {pageCeilingIndex}
+          </div> */}
         </div>
       </div>
       <ListGroup>
-        <ListItems keyword={keyword} results={results} />
+        <ListItems keyword={keyword} results={resultList} />
       </ListGroup>
     </div>
   );
