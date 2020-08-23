@@ -37,13 +37,6 @@ const SearchView = function (props) {
   const [isPageLastDisable, setIsPageLastDisable] = useState(true);
   const [pageCurrentIndex, setPageCurrentIndex] = useState(10);
 
-  useEffect(() => {
-    //console.log('useEffect run');
-    setPageCurrentIndex(10);
-    setResultsCount(results.length || 0);
-    setPagination();
-  }, [results]);
-
   const setPagination = function (nav) {
     let postPerPage = 10;
     if (results && results.length > 0) {
@@ -112,6 +105,12 @@ const SearchView = function (props) {
       setResultList([]);
     }
   }
+
+  useEffect(() => {
+    setPageCurrentIndex(10);
+    setResultsCount(results.length || 0);
+    setPagination();
+  }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>
