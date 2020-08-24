@@ -28,6 +28,10 @@ body {
   color: grey;
 }
 
+.searchBar {
+  background-color: white;
+}
+
 @media only screen and (max-width: 768px) {
   .btnSearch {
     margin-left: 0 !important;

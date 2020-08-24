@@ -129,7 +129,7 @@ const SearchView = function (props) {
         instance.mark(markKeyword.split(' '));
       }
     }}>
-      <div className="row d-flex mt-4 mb-3">
+      <div className="row d-flex mt-4 mb-3 sticky-top searchBar">
         <div className="col-md-8 d-flex align-items-baseline">
           <div className="d-flex">
             <Form
