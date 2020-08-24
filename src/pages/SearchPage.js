@@ -113,8 +113,8 @@ const SearchView = function (props) {
     setPagination();
 
     var totalPage = Math.floor(results.length / postPerPage);
-    setTotalPageNumber(totalPage == 0 ? 1 : totalPage);
-    
+    setTotalPageNumber(totalPage === 0 ? 1 : totalPage);
+
   }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
