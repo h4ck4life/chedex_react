@@ -88,6 +88,7 @@ const SearchView = function (props) {
           setIsPagePrevDisable(true);
           setIsPageNextDisable(false);
           setIsPageFirstDisable(true);
+          setIsPageLastDisable(false);
           setPageCurrentIndex(10);
           break;
         default:
