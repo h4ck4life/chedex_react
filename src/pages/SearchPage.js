@@ -180,7 +180,7 @@ const SearchView = function (props) {
             <Badge variant="light"><span className="count">{count} post(s)</span></Badge>
           </div>
         </div>
-        <div className="col-md-4 d-flex align-items-baseline flex-row-reverse">
+        <div className="col-md-4 d-flex align-items-baseline flex-row-reverse paginationBar">
           <Pagination className="d-flex align-items-baseline mb-0">
             <Pagination.First disabled={isPageFirstDisable} onClick={() => { setPagination('first') }} />
             <Pagination.Prev disabled={isPagePrevDisable} onClick={() => { setPagination('prev') }} />

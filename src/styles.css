@@ -34,7 +34,10 @@ body {
 
 @media only screen and (max-width: 768px) {
   .btnSearch {
-    margin-left: 0 !important;
-    margin-top: 10px;
+    display: none !important;
+  }
+
+  .paginationBar {
+    margin-top: 10px !important;
   }
 }
