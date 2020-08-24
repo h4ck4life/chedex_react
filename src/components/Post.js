@@ -1,3 +1,7 @@
+/**
+ * Regex to find para - https://regex101.com/r/XtfS4Y/1
+ */
+
 import React from "react";
 import {
   Badge,

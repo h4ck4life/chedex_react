@@ -44,6 +44,10 @@ body {
   color: #aeaeae !important;
 }
 
+.markHighlight {
+  background-color: #fff5bf;
+}
+
 @media only screen and (max-width: 768px) {
   .btnSearch {
     display: none !important;

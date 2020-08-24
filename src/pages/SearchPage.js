@@ -135,7 +135,7 @@ const SearchView = function (props) {
       if (isMarkEnable === true) {
         var instance = new Mark(element);
         var markKeyword = keyword || '';
-        instance.unmark().mark(markKeyword.split(' '));
+        instance.unmark().mark(markKeyword.split(' '), {className: 'markHighlight'});
       }
     }}>
       <div className="mt-4 mb-3 sticky-top pt-2 pb-2 searchBar">
