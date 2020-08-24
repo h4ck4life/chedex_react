@@ -31,18 +31,19 @@ const SearchView = function (props) {
   const [isLoading, setLoading] = useState(false);
 
   // Pagination state config
+  const postPerPage = 10;
   const [isPageFirstDisable, setIsPageFirstDisable] = useState(true);
   const [isPagePrevDisable, setIsPagePrevDisable] = useState(true);
   const [isPageNextDisable, setIsPageNextDisable] = useState(true);
   const [isPageLastDisable, setIsPageLastDisable] = useState(true);
   const [pageCurrentIndex, setPageCurrentIndex] = useState(10);
+  const [totalPageNumber, setTotalPageNumber] = useState(1);
 
   const setPagination = function (nav) {
-    let postPerPage = 10;
     if (results && results.length > 0) {
       switch (nav) {
         case 'next':
-          console.log(`Next ${pageCurrentIndex} - ${pageCurrentIndex + postPerPage}`);
+          //console.log(`Next ${pageCurrentIndex} - ${pageCurrentIndex + postPerPage}`);
           let pageListNext = results.slice(pageCurrentIndex, pageCurrentIndex + postPerPage);
           setResultList(pageListNext);
           setIsPagePrevDisable(false);
@@ -55,7 +56,7 @@ const SearchView = function (props) {
           }
           break;
         case 'prev':
-          console.log(`Prev ${pageCurrentIndex - postPerPage} - ${pageCurrentIndex}`);
+          //console.log(`Prev ${pageCurrentIndex - postPerPage} - ${pageCurrentIndex}`);
           let pageListPrev = results.slice(pageCurrentIndex - postPerPage, pageCurrentIndex);
           //setPageCeilingIndex(pageCeilingIndex - postPerPage);
           setResultList(pageListPrev);
@@ -70,7 +71,7 @@ const SearchView = function (props) {
           break;
         case 'last':
           var start = (Math.floor(results.length / postPerPage) * 10);
-          console.log(`Last ${start} - ${start + postPerPage}`);
+          //console.log(`Last ${start} - ${start + postPerPage}`);
           let pageListLast = results.slice(start, start + postPerPage);
           //setPageCurrentIndex(pageCurrentIndex + postPerPage);
           setResultList(pageListLast);
@@ -81,7 +82,7 @@ const SearchView = function (props) {
           setPageCurrentIndex(start);
           break;
         case 'first':
-          console.log(`First ${0} - ${postPerPage}`);
+          //console.log(`First ${0} - ${postPerPage}`);
           let pageListFirst = results.slice(0, postPerPage);
           setResultList(pageListFirst);
           setIsPagePrevDisable(true);
@@ -90,7 +91,7 @@ const SearchView = function (props) {
           setPageCurrentIndex(10);
           break;
         default:
-          console.log(`Default ${0} - ${postPerPage}`);
+          //console.log(`Default ${0} - ${postPerPage}`);
           let pageListDefault = results.slice(0, postPerPage);
           setResultList(pageListDefault);
           setIsPagePrevDisable(true);
@@ -110,12 +111,16 @@ const SearchView = function (props) {
     setPageCurrentIndex(10);
     setResultsCount(results.length || 0);
     setPagination();
+
+    var totalPage = Math.floor(results.length / postPerPage);
+    setTotalPageNumber(totalPage == 0 ? 1 : totalPage);
+    
   }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>
       <div className="row d-flex mt-4 mb-3">
-        <div className="col-md-9 d-flex align-items-baseline">
+        <div className="col-md-8 d-flex align-items-baseline">
           <div className="d-flex">
             <Form
               inline
@@ -163,16 +168,16 @@ const SearchView = function (props) {
             <Badge variant="light"><span className="count">{count} post(s)</span></Badge>
           </div>
         </div>
-        <div className="col-md-3 d-flex align-items-baseline flex-row-reverse">
+        <div className="col-md-4 d-flex align-items-baseline flex-row-reverse">
           <Pagination className="d-flex align-items-baseline mb-0">
             <Pagination.First disabled={isPageFirstDisable} onClick={() => { setPagination('first') }} />
             <Pagination.Prev disabled={isPagePrevDisable} onClick={() => { setPagination('prev') }} />
             <Pagination.Next disabled={isPageNextDisable} onClick={() => { setPagination('next') }} />
             <Pagination.Last disabled={isPageLastDisable} onClick={() => { setPagination('last') }} />
           </Pagination>
-          {/* <div className="d-flex mr-2 pageInfo">
-            {pageCurrentIndex} to {pageCeilingIndex}
-          </div> */}
+          <div className="d-flex mr-2 pageInfo">
+            Page {pageCurrentIndex / 10} of {totalPageNumber}
+          </div>
         </div>
       </div>
       <ListGroup>
