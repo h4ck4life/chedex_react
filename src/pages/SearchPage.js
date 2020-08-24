@@ -141,6 +141,7 @@ const SearchView = function (props) {
               <FormControl
                 value={keyword || ""}
                 size="md"
+                disabled={isLoading}
                 type="text"
                 placeholder="Type here.."
                 className=""
