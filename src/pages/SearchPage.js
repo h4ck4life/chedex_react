@@ -25,7 +25,8 @@ const ListItems = function (props) {
 const SearchView = function (props) {
 
   // Search results state
-  const [keyword, setKeyword] = useState();
+  const [keyword, setKeyword] = useState('');
+  const [keywordPrev, setKeywordPrev] = useState('');
   const [results, setResults] = useState([]);
   const [resultList, setResultList] = useState([]);
   const [count, setResultsCount] = useState(0);
@@ -154,6 +155,7 @@ const SearchView = function (props) {
                 className=""
                 onChange={(e) => {
                   setIsMarkEnable(false);
+                  console.log(e.target.value);
                   setKeyword(e.target.value);
                 }}
               />
@@ -162,6 +164,9 @@ const SearchView = function (props) {
                 type="submit"
                 disabled={isLoading}
                 onClick={(e) => {
+                  if(keyword === keywordPrev) {
+                    return false;
+                  }
                   if (keyword !== undefined && keyword.length > 2 && keyword.trim() !== "") {
                     setIsMarkEnable(true);
                     setLoading(true);
@@ -171,10 +176,12 @@ const SearchView = function (props) {
                         (result) => {
                           setResults(result);
                           setLoading(false);
+                          setKeywordPrev(keyword);
                         },
                         (error) => {
                           console.log(error.message);
                           setLoading(false);
+                          setKeywordPrev(keyword);
                         }
                       )
                   } else {
