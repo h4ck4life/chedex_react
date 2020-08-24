@@ -52,6 +52,7 @@ const SearchView = function (props) {
           setResultList(pageListNext);
           setIsPagePrevDisable(false);
           setIsPageFirstDisable(false);
+
           if (pageCurrentIndex === (Math.floor(results.length / postPerPage) * 10)) {
             setIsPageNextDisable(true);
             setIsPageLastDisable(true);
@@ -62,10 +63,10 @@ const SearchView = function (props) {
         case 'prev':
           //console.log(`Prev ${pageCurrentIndex - postPerPage} - ${pageCurrentIndex}`);
           let pageListPrev = results.slice(pageCurrentIndex - postPerPage, pageCurrentIndex);
-          //setPageCeilingIndex(pageCeilingIndex - postPerPage);
           setResultList(pageListPrev);
           setIsPageNextDisable(false);
           setIsPageLastDisable(false);
+
           if (pageCurrentIndex === postPerPage) {
             setIsPagePrevDisable(true);
             setIsPageFirstDisable(true);
@@ -125,7 +126,7 @@ const SearchView = function (props) {
     setPagination();
 
     var totalPage = Math.floor(results.length / postPerPage);
-    setTotalPageNumber(totalPage === 0 ? 1 : totalPage);
+    setTotalPageNumber(totalPage === 0 ? 1 : totalPage + 1);
 
   }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -134,7 +135,7 @@ const SearchView = function (props) {
       if (isMarkEnable === true) {
         var instance = new Mark(element);
         var markKeyword = keyword || '';
-        instance.mark(markKeyword.split(' '));
+        instance.unmark().mark(markKeyword.split(' '));
       }
     }}>
       <div className="mt-4 mb-3 sticky-top pt-2 pb-2 searchBar">
