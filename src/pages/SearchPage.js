@@ -155,7 +155,6 @@ const SearchView = function (props) {
                 className=""
                 onChange={(e) => {
                   setIsMarkEnable(false);
-                  console.log(e.target.value);
                   setKeyword(e.target.value);
                 }}
               />
@@ -164,10 +163,12 @@ const SearchView = function (props) {
                 type="submit"
                 disabled={isLoading}
                 onClick={(e) => {
-                  if(keyword === keywordPrev) {
+                  if (keyword === keywordPrev) {
                     return false;
                   }
                   if (keyword !== undefined && keyword.length > 2 && keyword.trim() !== "") {
+                    setResults([]);
+                    setResultsCount(0);
                     setIsMarkEnable(true);
                     setLoading(true);
                     fetch(`https://chedex.herokuapp.com/search/${keyword}`)
