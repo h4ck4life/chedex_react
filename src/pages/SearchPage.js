@@ -98,10 +98,17 @@ const SearchView = function (props) {
           //console.log(`Default ${0} - ${postPerPage}`);
           let pageListDefault = results.slice(0, postPerPage);
           setResultList(pageListDefault);
+
           setIsPagePrevDisable(true);
           setIsPageNextDisable(false);
           setIsPageLastDisable(false);
           setIsPageFirstDisable(true);
+
+          if (results.length < 11) {
+            setIsPageNextDisable(true);
+            setIsPageLastDisable(true);
+          }
+
           break;
       }
 
