@@ -20,7 +20,7 @@ export default (props) => (
       </div>
       <div>
         <Badge className="mr-1 score" title="Rationality scoring" variant="light">score {(props.score).toFixed(1) || 0}</Badge>
-        <span className="postDate">{props.date}</span>
+        <span className="postDate">{props.date.split(' | ')[0]}</span>
       </div>
     </div>
     <div className="post" dangerouslySetInnerHTML={createMarkup(props.content, props.keyword)} />
