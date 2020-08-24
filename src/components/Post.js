@@ -12,13 +12,14 @@ export default (props) => (
     <div className="mb-3">
       <div className="d-flex align-items-baseline w-100">
         <div className="d-flex flex-fill align-items-baseline">
-          <Badge className="d-flex mr-2 score" title="Rationality scoring" variant="light">score {(props.score).toFixed(1) || 0}</Badge> <b>{props.title}</b>
+          <b>{props.title}</b>
         </div>
         <div className="d-flex flex-fill flex-row-reverse">
           <a target="_blank" className="originalPost" rel="noopener noreferrer" title={props.url} href={props.url}>View original post</a>
         </div>
       </div>
       <div>
+        <Badge className="mr-1 score" title="Rationality scoring" variant="light">score {(props.score).toFixed(1) || 0}</Badge>
         <span className="postDate">{props.date}</span>
       </div>
     </div>
