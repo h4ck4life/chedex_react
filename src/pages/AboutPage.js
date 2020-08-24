@@ -6,7 +6,7 @@ export default (props) => (
     <Row className="mb-4">
       <Col>
         <h5>What is Chedex</h5>
-        <div>Chedex is a full-text search webapp of Tun Mahathir's official blog posts, <a href="http://chedet.cc/">chedet.cc</a>. You're able to search chedet blog posts by using single/mutiple keyword. The results is sorted by rationality ranking/scoring <a href="https://github.com/weixsong/elasticlunr.js">(read more)</a></div>
+        <div>Chedex is a full-text search webapp of Tun Mahathir's official blog posts, <a href="http://chedet.cc/">chedet.cc</a>. You're able to search chedet blog posts by using single/mutiple keyword. Search results are sorted by rationality ranking/scoring <a href="https://github.com/weixsong/elasticlunr.js">(read more)</a></div>
       </Col>
     </Row>
     <Row className="mb-4">

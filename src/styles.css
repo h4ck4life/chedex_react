@@ -32,6 +32,18 @@ body {
   background-color: white;
 }
 
+.paginationBar {
+  width: 50%;
+}
+
+.originalPost {
+  font-size: 13px;
+}
+
+.score {
+  color: #aeaeae !important;
+}
+
 @media only screen and (max-width: 768px) {
   .btnSearch {
     display: none !important;
@@ -39,6 +51,7 @@ body {
 
   .paginationBar {
     margin-top: 10px !important;
+    width: auto !important;
   }
 
   .formMobile {

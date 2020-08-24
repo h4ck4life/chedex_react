@@ -16,7 +16,7 @@ const ListItems = function (props) {
   return props.results.map((item, i) => {
     return (
       <ListGroup.Item key={item.ref}>
-        <Post keyword={props.keyword} title={item.doc.title} content={item.doc.content} date={item.doc.date} url={item.doc.url} />
+        <Post keyword={props.keyword} title={item.doc.title} content={item.doc.content} score={item.score} date={item.doc.date} url={item.doc.url} />
       </ListGroup.Item>
     );
   });
@@ -138,10 +138,10 @@ const SearchView = function (props) {
       }
     }}>
       <div className="mt-4 mb-3 sticky-top pt-2 pb-2 searchBar">
-        <div className="d-inline-flex flex-fill align-items-baseline formMobile">
+        <div className="d-inline-flex align-items-baseline formMobile">
           <div className="d-inline-flex formMobile">
             <Form
-            className="formMobile"
+              className="formMobile"
               inline
               onSubmit={(e) => {
                 e.preventDefault();
@@ -201,7 +201,7 @@ const SearchView = function (props) {
             <Pagination.Next disabled={isPageNextDisable} onClick={() => { setPagination('next') }} />
             <Pagination.Last disabled={isPageLastDisable} onClick={() => { setPagination('last') }} />
           </Pagination>
-          <div className="d-inline-flex mr-2 pageInfo">
+          <div className="ml-3 d-inline-flex mr-2 pageInfo">
             Page {pageCurrentIndex / 10} of {totalPageNumber}
           </div>
           <div className="d-inline-flex ml-2 postCount">
