@@ -40,4 +40,14 @@ body {
   .paginationBar {
     margin-top: 10px !important;
   }
+
+  .formMobile {
+    width: 100%;
+  }
+
+  .postCount {
+    left: 10px !important;
+    position: absolute;
+    top: 10px;
+  }
 }

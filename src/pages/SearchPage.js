@@ -6,7 +6,9 @@ import {
   Badge,
   Pagination,
   Form,
-  Button
+  Button,
+  Col,
+  Row,
 } from "react-bootstrap";
 import Mark from "mark.js/dist/mark"
 
@@ -137,10 +139,11 @@ const SearchView = function (props) {
         instance.mark(markKeyword.split(' '));
       }
     }}>
-      <div className="row d-flex mt-4 mb-3 sticky-top pt-2 pb-2 searchBar">
-        <div className="col-md-8 d-flex align-items-baseline">
+      <Row className="mt-4 mb-3 sticky-top pt-2 pb-2 searchBar">
+        <Col sm={4} className="align-items-baseline">
           <div className="d-flex">
             <Form
+            className="formMobile"
               inline
               onSubmit={(e) => {
                 e.preventDefault();
@@ -192,22 +195,22 @@ const SearchView = function (props) {
                 }} variant="primary">{isLoading ? 'Loading…' : 'Search'}</Button>
             </Form>
           </div>
-          <div className="d-flex ml-2">
-            <Badge variant="light"><span className="count">{count} post(s)</span></Badge>
-          </div>
-        </div>
-        <div className="col-md-4 d-flex align-items-baseline flex-row-reverse paginationBar">
-          <Pagination className="d-flex align-items-baseline mb-0">
+        </Col>
+        <Col sm={4} className="d-flex align-items-baseline flex-row-reverse paginationBar">
+          <Pagination className="align-items-baseline mb-0">
             <Pagination.First disabled={isPageFirstDisable} onClick={() => { setPagination('first') }} />
             <Pagination.Prev disabled={isPagePrevDisable} onClick={() => { setPagination('prev') }} />
             <Pagination.Next disabled={isPageNextDisable} onClick={() => { setPagination('next') }} />
             <Pagination.Last disabled={isPageLastDisable} onClick={() => { setPagination('last') }} />
           </Pagination>
-          <div className="d-flex mr-2 pageInfo">
+          <div className="mr-2 pageInfo">
             Page {pageCurrentIndex / 10} of {totalPageNumber}
           </div>
-        </div>
-      </div>
+          <div className="ml-2 postCount">
+            <Badge variant="light"><span className="count">{count} post(s)</span></Badge>
+          </div>
+        </Col>
+      </Row>
       <ListGroup>
         <ListItems keyword={keyword} results={resultList} />
       </ListGroup>
