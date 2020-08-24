@@ -42,12 +42,12 @@ body {
   }
 
   .formMobile {
-    width: 100%;
+    width: 100% !important;
   }
 
-  .postCount {
+  /* .postCount {
     left: 10px !important;
     position: absolute;
     top: 10px;
-  }
+  } */
 }

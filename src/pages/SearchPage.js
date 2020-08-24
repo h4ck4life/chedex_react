@@ -139,9 +139,9 @@ const SearchView = function (props) {
         instance.mark(markKeyword.split(' '));
       }
     }}>
-      <Row className="mt-4 mb-3 sticky-top pt-2 pb-2 searchBar">
-        <Col sm={4} className="align-items-baseline">
-          <div className="d-flex">
+      <div className="mt-4 mb-3 sticky-top pt-2 pb-2 searchBar">
+        <div className="d-inline-flex flex-fill align-items-baseline formMobile">
+          <div className="d-inline-flex formMobile">
             <Form
             className="formMobile"
               inline
@@ -195,22 +195,22 @@ const SearchView = function (props) {
                 }} variant="primary">{isLoading ? 'Loading…' : 'Search'}</Button>
             </Form>
           </div>
-        </Col>
-        <Col sm={4} className="d-flex align-items-baseline flex-row-reverse paginationBar">
-          <Pagination className="align-items-baseline mb-0">
+        </div>
+        <div className="d-inline-flex flex-fill align-items-baseline flex-row-reverse paginationBar">
+          <Pagination className="d-inline-flex align-items-baseline mb-0">
             <Pagination.First disabled={isPageFirstDisable} onClick={() => { setPagination('first') }} />
             <Pagination.Prev disabled={isPagePrevDisable} onClick={() => { setPagination('prev') }} />
             <Pagination.Next disabled={isPageNextDisable} onClick={() => { setPagination('next') }} />
             <Pagination.Last disabled={isPageLastDisable} onClick={() => { setPagination('last') }} />
           </Pagination>
-          <div className="mr-2 pageInfo">
+          <div className="d-inline-flex mr-2 pageInfo">
             Page {pageCurrentIndex / 10} of {totalPageNumber}
           </div>
-          <div className="ml-2 postCount">
+          <div className="d-inline-flex ml-2 postCount">
             <Badge variant="light"><span className="count">{count} post(s)</span></Badge>
           </div>
-        </Col>
-      </Row>
+        </div>
+      </div>
       <ListGroup>
         <ListItems keyword={keyword} results={resultList} />
       </ListGroup>
