@@ -194,19 +194,19 @@ const SearchView = function (props) {
             </Form>
           </div>
         </div>
-        <div className="d-inline-flex flex-fill align-items-baseline flex-row-reverse paginationBar">
+        <div className="d-inline-flex flex-fill align-items-baseline paginationBar">
+          <div className="d-inline-flex ml-3 postCount">
+            <Badge variant="light"><span className="count">{count} post(s)</span></Badge>
+          </div>
+          <div className="ml-3 d-inline-flex mr-2 pageInfo">
+            Page {pageCurrentIndex / 10} of {totalPageNumber}
+          </div>
           <Pagination className="d-inline-flex align-items-baseline mb-0">
             <Pagination.First disabled={isPageFirstDisable} onClick={() => { setPagination('first') }} />
             <Pagination.Prev disabled={isPagePrevDisable} onClick={() => { setPagination('prev') }} />
             <Pagination.Next disabled={isPageNextDisable} onClick={() => { setPagination('next') }} />
             <Pagination.Last disabled={isPageLastDisable} onClick={() => { setPagination('last') }} />
           </Pagination>
-          <div className="ml-3 d-inline-flex mr-2 pageInfo">
-            Page {pageCurrentIndex / 10} of {totalPageNumber}
-          </div>
-          <div className="d-inline-flex ml-2 postCount">
-            <Badge variant="light"><span className="count">{count} post(s)</span></Badge>
-          </div>
         </div>
       </div>
       <ListGroup>
