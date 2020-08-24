@@ -8,6 +8,7 @@ import {
   Form,
   Button
 } from "react-bootstrap";
+import Mark from "mark.js/dist/mark"
 
 import Post from "../components/Post";
 
@@ -29,6 +30,7 @@ const SearchView = function (props) {
   const [resultList, setResultList] = useState([]);
   const [count, setResultsCount] = useState(0);
   const [isLoading, setLoading] = useState(false);
+  const [isMarkEnable, setIsMarkEnable] = useState(true);
 
   // Pagination state config
   const postPerPage = 10;
@@ -41,6 +43,7 @@ const SearchView = function (props) {
 
   const setPagination = function (nav) {
     if (results && results.length > 0) {
+      setIsMarkEnable(true);
       switch (nav) {
         case 'next':
           //console.log(`Next ${pageCurrentIndex} - ${pageCurrentIndex + postPerPage}`);
@@ -119,7 +122,13 @@ const SearchView = function (props) {
   }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div>
+    <div className="postList" ref={(element) => {
+      if (isMarkEnable === true) {
+        var instance = new Mark(element);
+        var markKeyword = keyword || '';
+        instance.mark(markKeyword.split(' '));
+      }
+    }}>
       <div className="row d-flex mt-4 mb-3">
         <div className="col-md-8 d-flex align-items-baseline">
           <div className="d-flex">
@@ -136,6 +145,7 @@ const SearchView = function (props) {
                 placeholder="Type here.."
                 className=""
                 onChange={(e) => {
+                  setIsMarkEnable(false);
                   setKeyword(e.target.value);
                 }}
               />
@@ -145,6 +155,7 @@ const SearchView = function (props) {
                 disabled={isLoading}
                 onClick={(e) => {
                   if (keyword !== undefined && keyword.length > 2 && keyword.trim() !== "") {
+                    setIsMarkEnable(true);
                     setLoading(true);
                     fetch(`https://chedex.herokuapp.com/search/${keyword}`)
                       .then(res => res.json())

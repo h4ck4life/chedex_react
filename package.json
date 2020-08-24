@@ -10,6 +10,7 @@
     "bootstrap": "4.5.2",
     "cheerio": "^1.0.0-rc.3",
     "elasticlunr": "0.9.5",
+    "mark.js": "^8.11.1",
     "moment": "^2.27.0",
     "react": "16.12.0",
     "react-bootstrap": "1.3.0",
