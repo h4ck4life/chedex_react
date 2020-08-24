@@ -7,8 +7,6 @@ import {
   Pagination,
   Form,
   Button,
-  Col,
-  Row,
 } from "react-bootstrap";
 import Mark from "mark.js/dist/mark"
 
