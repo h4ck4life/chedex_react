@@ -39,8 +39,8 @@ const SearchView = function (props) {
   const [isPagePrevDisable, setIsPagePrevDisable] = useState(true);
   const [isPageNextDisable, setIsPageNextDisable] = useState(true);
   const [isPageLastDisable, setIsPageLastDisable] = useState(true);
-  const [pageCurrentIndex, setPageCurrentIndex] = useState(10);
-  const [totalPageNumber, setTotalPageNumber] = useState(1);
+  const [pageCurrentIndex, setPageCurrentIndex] = useState(0);
+  const [totalPageNumber, setTotalPageNumber] = useState(0);
 
   const setPagination = function (nav) {
     if (results && results.length > 0) {
@@ -121,12 +121,11 @@ const SearchView = function (props) {
   }
 
   useEffect(() => {
-    setPageCurrentIndex(10);
     setResultsCount(results.length || 0);
     setPagination();
 
     var totalPage = Math.floor(results.length / postPerPage);
-    setTotalPageNumber(totalPage === 0 ? 1 : totalPage + 1);
+    setTotalPageNumber(totalPage === 0 ? 0 : totalPage);
 
   }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -171,6 +170,7 @@ const SearchView = function (props) {
                   if (keyword !== undefined && keyword.length > 2 && keyword.trim() !== "") {
                     setResults([]);
                     setResultsCount(0);
+                    setPageCurrentIndex(0);
                     setIsMarkEnable(true);
                     setLoading(true);
                     fetch(`https://chedex.herokuapp.com/search/${keyword}`)
@@ -180,6 +180,7 @@ const SearchView = function (props) {
                           setResults(result);
                           setLoading(false);
                           setKeywordPrev(keyword);
+                          setPageCurrentIndex(10);
                         },
                         (error) => {
                           console.log(error.message);
