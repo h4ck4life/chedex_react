@@ -22,7 +22,7 @@ export default (props) => (
         <h5>Dev Contact</h5>
         <div>Email → <a href="mailto:alifaziz@gmail.com">alifaziz@gmail.com</a></div>
         {/* <div>Github → <a rel="noopener noreferrer" target="_blank" href="https://github.com/h4ck4life">h4ck4life</a></div> */}
-        <div>Twitter → <a rel="noopener noreferrer" target="_blank" href="https://twitter.com/h4ck4life">@h4ck4life</a></div>
+        {/* <div>Twitter → <a rel="noopener noreferrer" target="_blank" href="https://twitter.com/h4ck4life">@h4ck4life</a></div> */}
       </Col>
     </Row>
   </Container>
