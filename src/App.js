@@ -24,12 +24,12 @@ const App = () => {
               <Link className="nav-link" to="/about">
                 About
               </Link>
-              <Nav.Link
+              {/* <Nav.Link
                 target="_blank"
                 href="https://github.com/h4ck4life/chedex_react"
-              >
+              > 
                 Github
-              </Nav.Link>
+              </Nav.Link> */}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
