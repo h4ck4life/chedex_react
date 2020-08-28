@@ -116,25 +116,57 @@ const SearchView = function (props) {
 
     } else {
       //console.log(results.length);
-      setResultList([]);
+      //setResultList([]);
     }
   }
 
   useEffect(() => {
+
+    //setResults([]);
     setResultsCount(results.length || 0);
     setPagination();
 
     var totalPage = Math.floor(results.length / postPerPage);
     setTotalPageNumber(totalPage === 0 ? 0 : totalPage);
 
+    if (props && props.param && results.length < 1) {
+      fetchFulltextSearch(props.param);
+    }
+
   }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const fetchFulltextSearch = function (keyword) {
+    //setResults([]);
+    setKeyword(keyword);
+    setResultsCount(0);
+    setPageCurrentIndex(0);
+    setIsMarkEnable(true);
+    setLoading(true);
+    fetch(`https://chedex.herokuapp.com/search/${keyword}`)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          if (result && result.length > 0) {
+            setResults(result);
+          }
+          setLoading(false);
+          setKeywordPrev(keyword);
+          setPageCurrentIndex(10);
+        },
+        (error) => {
+          console.log(error.message);
+          setLoading(false);
+          setKeywordPrev(keyword);
+        }
+      )
+  }
 
   return (
     <div className="postList" ref={(element) => {
       if (isMarkEnable === true) {
         var instance = new Mark(element);
         var markKeyword = keyword || '';
-        instance.unmark().mark(markKeyword.split(' '), {className: 'markHighlight', accuracy: 'complementary'});
+        instance.unmark().mark(markKeyword.split(' '), { className: 'markHighlight', accuracy: 'complementary' });
       }
     }}>
       <div className="mt-4 mb-3 sticky-top pt-2 pb-2 searchBar">
@@ -168,28 +200,9 @@ const SearchView = function (props) {
                     return false;
                   }
                   if (keyword !== undefined && keyword.length > 2 && keyword.trim() !== "") {
-                    setResults([]);
-                    setResultsCount(0);
-                    setPageCurrentIndex(0);
-                    setIsMarkEnable(true);
-                    setLoading(true);
-                    fetch(`https://chedex.herokuapp.com/search/${keyword}`)
-                      .then(res => res.json())
-                      .then(
-                        (result) => {
-                          setResults(result);
-                          setLoading(false);
-                          setKeywordPrev(keyword);
-                          setPageCurrentIndex(10);
-                        },
-                        (error) => {
-                          console.log(error.message);
-                          setLoading(false);
-                          setKeywordPrev(keyword);
-                        }
-                      )
+                    fetchFulltextSearch(keyword);
                   } else {
-                    setResults([]);
+                    //setResults([]);
                     setResultsCount(0);
                   }
                 }} variant="primary">{isLoading ? 'Loading…' : 'Search'}</Button>
@@ -218,10 +231,10 @@ const SearchView = function (props) {
   );
 };
 
-export default () => {
+export default (props) => {
   return (
     <div>
-      <SearchView />
+      <SearchView param={props.uriParam} />
     </div>
   );
 };

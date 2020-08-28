@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Container, Navbar, Nav } from "react-bootstrap";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
 
 import AboutPage from "./pages/AboutPage";
 import SearchPage from "./pages/SearchPage";
@@ -34,12 +34,13 @@ const App = () => {
           </Navbar.Collapse>
         </Navbar>
         <Switch>
-          <Route path="/about">
+          <Route exact path="/about">
             <AboutPage />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <SearchPage />
           </Route>
+          <Route exact path="/search/:uriParam" render={(props) => <SearchPage uriParam={props.match.params.uriParam} />} />
         </Switch>
       </Container>
     </Router>
