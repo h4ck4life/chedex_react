@@ -13,7 +13,9 @@ export default (props) => (
       <Col>
         <h5>API</h5>
         <p>Feel free to use in your own project,</p>
-        <div><a rel="noopener noreferrer" target="_blank" href="https://chedex.herokuapp.com/search/vision 2020">https://chedex.herokuapp.com/search/vision 2020</a><div>
+        <div>
+          <a rel="noopener noreferrer" target="_blank" href="https://chedex.herokuapp.com/search/vision 2020">https://chedex.herokuapp.com/search/vision 2020</a>
+        </div>
       </Col>
     </Row>
     <Row className="mb-4">
