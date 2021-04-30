@@ -7,7 +7,6 @@ export default (props) => (
       <Col>
         <h5>What is Chedex</h5>
         <div>Chedex is a full-text search webapp of Tun Mahathir's official blog posts, <a href="http://chedet.cc/">chedet.cc</a>. You're able to search chedet blog posts by using single/multiple keyword. Search results are sorted by rationality ranking/scoring <a href="https://lucene.apache.org/core/3_5_0/scoring.html">(read more)</a></div>
-        <h5>Last indexed on 1 May 2021</h5>
       </Col>
     </Row>
     <Row className="mb-4">
@@ -25,6 +24,11 @@ export default (props) => (
         <div>Email → <a href="mailto:alifaziz@gmail.com">alifaziz@gmail.com</a></div>
         {/*<div>Github → <a rel="noopener noreferrer" target="_blank" href="https://github.com/h4ck4life">h4ck4life</a></div>*/}
         <div>Twitter → <a rel="noopener noreferrer" target="_blank" href="https://twitter.com/h4ck4life">@h4ck4life</a></div>
+      </Col>
+    </Row>
+    <Row className="mb-4">
+      <Col>
+        <p>Content last indexed on <strong>1 May 2021</strong></p>
       </Col>
     </Row>
   </Container>
