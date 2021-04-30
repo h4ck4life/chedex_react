@@ -37,6 +37,9 @@ const App = () => {
           <Route path="/about">
             <AboutPage />
           </Route>
+          <Route path="/search/:keyword">
+            <SearchPage />
+          </Route>
           <Route path="/">
             <SearchPage />
           </Route>

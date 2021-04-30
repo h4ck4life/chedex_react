@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  useHistory,
+  useParams
+} from "react-router-dom";
 import {
   FormControl,
   ListGroup,
@@ -25,6 +29,7 @@ const ListItems = function (props) {
 const SearchView = function (props) {
 
   // Search results state
+  const [urlKeyword, setUrlKeyword] = useState('');
   const [keyword, setKeyword] = useState('');
   const [keywordPrev, setKeywordPrev] = useState('');
   const [results, setResults] = useState([]);
@@ -32,6 +37,8 @@ const SearchView = function (props) {
   const [count, setResultsCount] = useState(0);
   const [isLoading, setLoading] = useState(false);
   const [isMarkEnable, setIsMarkEnable] = useState(true);
+  const btnSearch = useRef(null);
+  const history = useHistory();
 
   // Pagination state config
   const postPerPage = 10;
@@ -127,14 +134,58 @@ const SearchView = function (props) {
     var totalPage = Math.floor(results.length / postPerPage);
     setTotalPageNumber(totalPage === 0 ? 0 : totalPage);
 
-  }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (props.keyword) {
+      setUrlKeyword(props.keyword);
+      setKeyword(props.keyword);
+      btnSearch.current.click();
+
+      console.log(props.keyword);
+      console.log(urlKeyword);
+      console.log(keyword);
+      console.log('=========');
+    }
+
+  }, [results, urlKeyword]); // eslint-disable-line react-hooks/exhaustive-deps
+
+
+  const handleClick = (e) => {
+    if (keyword === keywordPrev) {
+      return false;
+    }
+    if (keyword !== undefined && keyword.length > 2 && keyword.trim() !== "") {
+      setResults([]);
+      setResultsCount(0);
+      setPageCurrentIndex(0);
+      setIsMarkEnable(true);
+      setLoading(true);
+      fetch(`https://chedex.herokuapp.com/search/${keyword}`)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            setResults(result);
+            setLoading(false);
+            setKeywordPrev(keyword);
+            setPageCurrentIndex(10);
+            history.push(`/search/${keyword}`);
+          },
+          (error) => {
+            console.log(error.message);
+            setLoading(false);
+            setKeywordPrev(keyword);
+          }
+        )
+    } else {
+      setResults([]);
+      setResultsCount(0);
+    }
+  }
 
   return (
     <div className="postList" ref={(element) => {
       if (isMarkEnable === true) {
         var instance = new Mark(element);
         var markKeyword = keyword || '';
-        instance.unmark().mark(markKeyword.split(' '), {className: 'markHighlight', accuracy: 'complementary'});
+        instance.unmark().mark(markKeyword.split(' '), { className: 'markHighlight', accuracy: 'complementary' });
       }
     }}>
       <div className="mt-4 mb-3 sticky-top pt-2 pb-2 searchBar">
@@ -160,39 +211,11 @@ const SearchView = function (props) {
                 }}
               />
               <Button
+                ref={btnSearch}
                 className="ml-2 btnSearch"
                 type="submit"
                 disabled={isLoading}
-                onClick={(e) => {
-                  if (keyword === keywordPrev) {
-                    return false;
-                  }
-                  if (keyword !== undefined && keyword.length > 2 && keyword.trim() !== "") {
-                    setResults([]);
-                    setResultsCount(0);
-                    setPageCurrentIndex(0);
-                    setIsMarkEnable(true);
-                    setLoading(true);
-                    fetch(`https://chedex.herokuapp.com/search/${keyword}`)
-                      .then(res => res.json())
-                      .then(
-                        (result) => {
-                          setResults(result);
-                          setLoading(false);
-                          setKeywordPrev(keyword);
-                          setPageCurrentIndex(10);
-                        },
-                        (error) => {
-                          console.log(error.message);
-                          setLoading(false);
-                          setKeywordPrev(keyword);
-                        }
-                      )
-                  } else {
-                    setResults([]);
-                    setResultsCount(0);
-                  }
-                }} variant="primary">{isLoading ? 'Loading…' : 'Search'}</Button>
+                onClick={handleClick} variant="primary">{isLoading ? 'Loading…' : 'Search'}</Button>
             </Form>
           </div>
         </div>
@@ -219,9 +242,10 @@ const SearchView = function (props) {
 };
 
 export default () => {
+  let { keyword } = useParams();
   return (
     <div>
-      <SearchView />
+      <SearchView keyword={keyword} />
     </div>
   );
 };
