@@ -217,7 +217,7 @@ const SearchView = function (props) {
                 disabled={isLoading}
                 type="text"
                 placeholder="Type here.."
-                className=""
+                className="darkInput"
                 onChange={(e) => {
                   setIsMarkEnable(false);
                   setKeyword(e.target.value);

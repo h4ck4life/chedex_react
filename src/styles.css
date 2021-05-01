@@ -1,5 +1,5 @@
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .App {
@@ -29,7 +29,30 @@ body {
 }
 
 .searchBar {
-  background-color: white;
+  background-color: #060606;
+}
+
+.navbar-toggler {
+  background-color: #171717 !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #616161 !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #9e9e9e;
+}
+
+.darkInput {
+  background-color: #151515 !important;
+  border: 1px solid #151515 !important;
+  color: #e0e0e0 !important;
+}
+
+.list-group-item:hover {
+  background-color: #222 !important;
+  color: #adafae !important;
 }
 
 .paginationBar {
@@ -41,7 +64,7 @@ body {
 }
 
 .markHighlight {
-  background-color: #fff5bf;
+  background-color: #676767;
 }
 
 @media only screen and (max-width: 768px) {
