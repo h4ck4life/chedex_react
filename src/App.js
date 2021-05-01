@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -8,9 +8,7 @@ import SearchPage from "./pages/SearchPage";
 import "./styles.css";
 
 const App = () => {
-  useEffect(() => {
-    // Run once, get the large index file into IndexDB + also check for index updates
-  }, []);
+
   return (
     <Router>
       <Container className="p-3">

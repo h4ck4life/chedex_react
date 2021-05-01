@@ -16,14 +16,6 @@ import Mark from "mark.js/dist/mark"
 
 import Post from "../components/Post";
 
-export const useIsMount = () => {
-  const isMountRef = useRef(true);
-  useEffect(() => {
-    isMountRef.current = false;
-  }, []);
-  return isMountRef.current;
-};
-
 const ListItems = function (props) {
   return props.results.map((item, i) => {
     return (
@@ -35,8 +27,6 @@ const ListItems = function (props) {
 };
 
 const SearchView = function (props) {
-
-  //const isMount = useIsMount();
 
   // Search results state
   const [urlKeyword, setUrlKeyword] = useState('');
@@ -142,8 +132,6 @@ const SearchView = function (props) {
       setKeyword(props.keyword);
       setUrlKeyword(props.keyword);
       btnSearch.current.click();
-    } else {
-      //console.log('no params');
     }
   }, [urlKeyword]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -251,7 +239,7 @@ const SearchView = function (props) {
   );
 };
 
-export default () => {
+export default (props) => {
   let { keyword } = useParams();
   return (
     <div>
