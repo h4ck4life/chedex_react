@@ -21,6 +21,7 @@ body {
 
 .post {
   line-height: 1.8;
+  font-size: 1.05em !important;
 }
 
 .pageInfo {

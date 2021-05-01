@@ -225,7 +225,7 @@ const SearchView = function (props) {
               />
               <Button
                 ref={btnSearch}
-                className="ml-2 btnSearch"
+                className="ml-2 btnSearch btn-secondary"
                 type="submit"
                 disabled={isLoading}
                 onClick={handleClick}
@@ -237,7 +237,7 @@ const SearchView = function (props) {
         </div>
         <div className="d-inline-flex flex-fill align-items-baseline paginationBar">
           <div className="d-inline-flex ml-3 postCount">
-            <Badge variant="light"><span className="count">{count} post(s)</span></Badge>
+            <Badge variant="secondary"><span className="count">{count} post(s)</span></Badge>
           </div>
           <div className="ml-3 d-inline-flex mr-2 pageInfo">
             Page {pageCurrentIndex / 10} of {totalPageNumber}
