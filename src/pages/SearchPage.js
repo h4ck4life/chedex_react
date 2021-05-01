@@ -139,9 +139,11 @@ const SearchView = function (props) {
   }
 
   useEffect(() => {
-    setKeyword(props.keyword);
-    setUrlKeyword(props.keyword);
-    btnSearch.current.click();
+    if (props.keyword) {
+      setKeyword(props.keyword);
+      setUrlKeyword(props.keyword);
+      btnSearch.current.click();
+    }
   }, [urlKeyword]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
