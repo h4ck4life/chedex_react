@@ -7,6 +7,8 @@ import {
   Badge,
 } from "react-bootstrap";
 import Sharect from "sharect";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 
 
 let createMarkup = function (content, keyword) {
@@ -23,14 +25,14 @@ export default (props) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if(score < 7 && score >= 5) {
-      setBadgeColor('#e89907');
+    if (score < 7 && score >= 5) {
+      setBadgeColor('#aeaeae');
     }
-    if(score < 5) {
-      setBadgeColor('#ef8282');
+    if (score < 5) {
+      setBadgeColor('#aeaeae');
     }
-    if(score > 6) {
-      setBadgeColor('#4ebf4e');
+    if (score > 6) {
+      setBadgeColor('#609e60');
     }
   }, [score]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -45,7 +47,7 @@ export default (props) => {
 
   const badgeStyle = {
     color: badgeColor,
-  };  
+  };
 
   return (
     <div className="pt-3 pb-3">
@@ -54,8 +56,9 @@ export default (props) => {
           <div className="d-flex flex-fill align-items-baseline">
             <b>{props.title}</b>
           </div>
-          <div className="d-flex flex-fill flex-row-reverse">
-            <a target="_blank" className="originalPost" rel="noopener noreferrer" title={props.url} href={props.url}>View original post</a>
+          <div className="d-flex flex-fill flex-row-reverse align-items-baseline">
+            <FontAwesomeIcon icon={faExternalLinkAlt} size="xs" color="#aeaeae" />
+            <a target="_blank" className="originalPost mr-1" rel="noopener noreferrer" title={props.url} href={props.url}>View original post</a>
           </div>
         </div>
         <div>

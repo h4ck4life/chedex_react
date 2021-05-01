@@ -154,7 +154,6 @@ const SearchView = function (props) {
   }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClick = (e) => {
-    console.log('dasdasdsa');
     if (keyword === keywordPrev) {
       return false;
     }
