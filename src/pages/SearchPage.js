@@ -166,6 +166,11 @@ const SearchView = function (props) {
         .then(res => res.json())
         .then(
           (result) => {
+            setResults(result);
+            setLoading(false);
+            setKeywordPrev(keyword);
+            setPageCurrentIndex(10);
+            history.push(`/search/${keyword}`);
             props.dispatch({
               type: 'SAVE_RESULT',
               payload: { results: result }
@@ -174,11 +179,6 @@ const SearchView = function (props) {
               type: 'SAVE_KEYWORD',
               payload: { keyword: keyword }
             });
-            setResults(result);
-            setLoading(false);
-            setKeywordPrev(keyword);
-            setPageCurrentIndex(10);
-            history.push(`/search/${keyword}`);
           },
           (error) => {
             console.log(error.message);
