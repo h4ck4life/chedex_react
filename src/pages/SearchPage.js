@@ -16,6 +16,14 @@ import Mark from "mark.js/dist/mark"
 
 import Post from "../components/Post";
 
+export const useIsMount = () => {
+  const isMountRef = useRef(true);
+  useEffect(() => {
+    isMountRef.current = false;
+  }, []);
+  return isMountRef.current;
+};
+
 const ListItems = function (props) {
   return props.results.map((item, i) => {
     return (
@@ -28,6 +36,8 @@ const ListItems = function (props) {
 
 const SearchView = function (props) {
 
+  //const isMount = useIsMount();
+
   // Search results state
   const [urlKeyword, setUrlKeyword] = useState('');
   const [keyword, setKeyword] = useState('');
@@ -38,6 +48,7 @@ const SearchView = function (props) {
   const [isLoading, setLoading] = useState(false);
   const [isMarkEnable, setIsMarkEnable] = useState(true);
   const btnSearch = useRef(null);
+  const searchInputRef = useRef(null);
   const history = useHistory();
 
   // Pagination state config
@@ -128,27 +139,20 @@ const SearchView = function (props) {
   }
 
   useEffect(() => {
+    setKeyword(props.keyword);
+    setUrlKeyword(props.keyword);
+    btnSearch.current.click();
+  }, [urlKeyword]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
     setResultsCount(results.length || 0);
     setPagination();
-
     var totalPage = Math.floor(results.length / postPerPage);
     setTotalPageNumber(totalPage === 0 ? 0 : totalPage);
-
-    if (props.keyword) {
-      setUrlKeyword(props.keyword);
-      setKeyword(props.keyword);
-      btnSearch.current.click();
-
-      console.log(props.keyword);
-      console.log(urlKeyword);
-      console.log(keyword);
-      console.log('=========');
-    }
-
-  }, [results, urlKeyword]); // eslint-disable-line react-hooks/exhaustive-deps
-
+  }, [results]);
 
   const handleClick = (e) => {
+    console.log('dasdasdsa');
     if (keyword === keywordPrev) {
       return false;
     }
@@ -199,6 +203,7 @@ const SearchView = function (props) {
               }}
             >
               <FormControl
+                ref={searchInputRef}
                 value={keyword || ""}
                 size="md"
                 disabled={isLoading}
@@ -215,7 +220,10 @@ const SearchView = function (props) {
                 className="ml-2 btnSearch"
                 type="submit"
                 disabled={isLoading}
-                onClick={handleClick} variant="primary">{isLoading ? 'Loading…' : 'Search'}</Button>
+                onClick={handleClick}
+                variant="primary">
+                {isLoading ? 'Loading…' : 'Search'}
+              </Button>
             </Form>
           </div>
         </div>
