@@ -8,7 +8,6 @@ import SearchPage from "./pages/SearchPage";
 import "./styles.css";
 
 const App = () => {
-
   return (
     <Router>
       <Container className="p-3">

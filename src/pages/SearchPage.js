@@ -13,8 +13,8 @@ import {
   Button,
 } from "react-bootstrap";
 import Mark from "mark.js/dist/mark"
-
 import Post from "../components/Post";
+import { connect } from 'react-redux';
 
 const ListItems = function (props) {
   return props.results.map((item, i) => {
@@ -142,6 +142,13 @@ const SearchView = function (props) {
     setTotalPageNumber(totalPage === 0 ? 0 : totalPage);
   }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (props.results && props.results.results && props.results.results.length > 0) {
+      setResults(props.results.results);
+      setKeyword(props.searchKeyword.keyword)
+    }
+  }, [props.results, props.searchKeyword.keyword]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const handleClick = (e) => {
     if (keyword === keywordPrev) {
       return false;
@@ -156,6 +163,14 @@ const SearchView = function (props) {
         .then(res => res.json())
         .then(
           (result) => {
+            props.dispatch({
+              type: 'SAVE_RESULT',
+              payload: { results: result }
+            });
+            props.dispatch({
+              type: 'SAVE_KEYWORD',
+              payload: { keyword: keyword }
+            });
             setResults(result);
             setLoading(false);
             setKeywordPrev(keyword);
@@ -239,11 +254,27 @@ const SearchView = function (props) {
   );
 };
 
-export default (props) => {
+const mapStateToProps = state => {
+  return {
+    results: state.results,
+    keyword: state.keyword
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatch
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)((props) => {
   let { keyword } = useParams();
   return (
     <div>
-      <SearchView keyword={keyword} />
+      <SearchView keyword={keyword} results={props.results} searchKeyword={props.keyword} dispatch={props.dispatch} />
     </div>
   );
-};
+});
