@@ -65,7 +65,8 @@ body {
 }
 
 .markHighlight {
-  background-color: #676767;
+  background-color: #444444;
+  color: #dadada;
 }
 
 @media only screen and (max-width: 768px) {
