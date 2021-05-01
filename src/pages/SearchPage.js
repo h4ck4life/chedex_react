@@ -136,18 +136,21 @@ const SearchView = function (props) {
   }, [urlKeyword]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setResultsCount(results.length || 0);
-    setPagination();
-    var totalPage = Math.floor(results.length / postPerPage);
-    setTotalPageNumber(totalPage === 0 ? 0 : totalPage);
+    if (results.length > 0) {
+      setResultsCount(results.length || 0);
+      setPagination();
+      var totalPage = Math.floor(results.length / postPerPage);
+      setTotalPageNumber(totalPage === 0 ? 0 : totalPage);
+    }
   }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (props.results && props.results.results && props.results.results.length > 0) {
+    if (props.keyword === undefined && results.length < 1 && props.results && props.results.results && props.results.results.length > 0) {
       setResults(props.results.results);
-      setKeyword(props.searchKeyword.keyword)
+      setKeyword(props.searchKeyword.keyword);
+      setPageCurrentIndex(10);
     }
-  }, [props.results, props.searchKeyword.keyword]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [props.results.results]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClick = (e) => {
     if (keyword === keywordPrev) {
