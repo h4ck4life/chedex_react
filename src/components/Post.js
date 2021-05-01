@@ -2,7 +2,7 @@
  * Regex to find para - https://regex101.com/r/XtfS4Y/1
  */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Badge,
 } from "react-bootstrap";
@@ -15,6 +15,25 @@ let createMarkup = function (content, keyword) {
 
 export default (props) => {
 
+  const [score, setScore] = useState(0);
+  const [badgeColor, setBadgeColor] = useState(0);
+
+  useEffect(() => {
+    setScore(props.score);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if(score < 7 && score >= 5) {
+      setBadgeColor('#e89907');
+    }
+    if(score < 5) {
+      setBadgeColor('#ef8282');
+    }
+    if(score > 6) {
+      setBadgeColor('#4ebf4e');
+    }
+  }, [score]); // eslint-disable-line react-hooks/exhaustive-deps
+
   Sharect.config({
     facebook: true,
     twitter: true,
@@ -23,6 +42,10 @@ export default (props) => {
     iconColor: '#FFF',
     selectableElements: ['.post'],
   }).init();
+
+  const badgeStyle = {
+    color: badgeColor,
+  };  
 
   return (
     <div className="pt-3 pb-3">
@@ -36,7 +59,7 @@ export default (props) => {
           </div>
         </div>
         <div>
-          <Badge className="mr-1 score" title="Rationality scoring" variant="light">score {(props.score).toFixed(1) || 0}</Badge>
+          <Badge className="mr-1 score" title="Rationality scoring" variant="light" style={badgeStyle}>score {(props.score).toFixed(1) || 0}</Badge>
           <span className="postDate">{props.date.split(' | ')[0]}</span>
         </div>
       </div>

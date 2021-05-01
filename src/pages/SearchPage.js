@@ -151,7 +151,7 @@ const SearchView = function (props) {
     setPagination();
     var totalPage = Math.floor(results.length / postPerPage);
     setTotalPageNumber(totalPage === 0 ? 0 : totalPage);
-  }, [results]);
+  }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClick = (e) => {
     console.log('dasdasdsa');
