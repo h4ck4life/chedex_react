@@ -133,7 +133,6 @@ const SearchView = function (props) {
       }
 
     } else {
-      //console.log(results.length);
       setResultList([]);
     }
   }
@@ -143,6 +142,8 @@ const SearchView = function (props) {
       setKeyword(props.keyword);
       setUrlKeyword(props.keyword);
       btnSearch.current.click();
+    } else {
+      //console.log('no params');
     }
   }, [urlKeyword]); // eslint-disable-line react-hooks/exhaustive-deps
 

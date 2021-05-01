@@ -41,7 +41,7 @@ const App = () => {
             <SearchPage />
           </Route>
           <Route path="/">
-            <SearchPage />
+            <SearchPage key={Date.now()} />
           </Route>
         </Switch>
       </Container>
