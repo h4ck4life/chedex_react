@@ -24,6 +24,10 @@ body {
   font-size: 1.05em !important;
 }
 
+.postTitle {
+  font-size: 1.2em !important;
+}
+
 .pageInfo {
   font-size: 14px;
   color: grey;

@@ -53,7 +53,7 @@ export default (props) => {
     <div className="pt-3 pb-3">
       <div className="mb-3">
         <div className="d-flex align-items-baseline w-100">
-          <div className="d-flex flex-fill align-items-baseline">
+          <div className="d-flex flex-fill align-items-baseline postTitle">
             <b>{props.title}</b>
           </div>
           <div className="d-flex flex-fill flex-row-reverse align-items-baseline">
